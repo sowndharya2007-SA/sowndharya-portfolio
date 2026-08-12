@@ -532,3 +532,43 @@ if (canvas) {
     animateParticles();
 
 }
+const typingText = document.getElementById("typing-text");
+
+const technicalSkills = [
+    "AI-powered systems",
+    "Machine Learning models",
+    "Deep Learning solutions",
+    "Intelligent applications",
+    "Computer Vision systems"
+];
+
+let skillIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeSkill() {
+    const currentSkill = technicalSkills[skillIndex];
+
+    if (!deleting) {
+        typingText.textContent = currentSkill.substring(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === currentSkill.length) {
+            deleting = true;
+            setTimeout(typeSkill, 1600);
+            return;
+        }
+    } else {
+        typingText.textContent = currentSkill.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+            deleting = false;
+            skillIndex = (skillIndex + 1) % technicalSkills.length;
+        }
+    }
+
+    setTimeout(typeSkill, deleting ? 45 : 80);
+}
+
+typeSkill();
